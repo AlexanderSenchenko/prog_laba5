@@ -1,20 +1,17 @@
-#include <stdio.h>
 #include "main.h"
-#include "strings.h"
 
 int main()
 {
 	char *path;
-	Error error;
+	Error arg;
 
 	path = input();
-	//printf("%s", path);
 
-	error = check(path);
-	printf("%d\n", slen(path));
-	if (error.type == 1) {
-		printf("Допустимый путь 260 символов\nВаш путь: %d\n", error.index);
-	}
+	arg = check(path);
+
+	printf("Error: %d\n", sspn(path));
+
+	output(arg, path);
 
 	return 0;
 }
