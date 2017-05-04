@@ -8,6 +8,7 @@ char *input()
 	}
 
 	fgets(path, MAX_PATH, stdin);
+	path[slen(path)] = '\0';
 
 	return path;
 }
@@ -34,19 +35,13 @@ char *check_os(const char *path)
 
 	for (int i = 0; path[i] != '\0'; i++) {
 		if (check_w == 0 && path[i] == '/') {
-			check_w++;//Error
+			check_w++;
 		} else if (check_l == 0 && path[i] == '\\') {
 			check_l++;
 		}
 
-		if (check_w > 0 && check_l > 0) {
-			OS = malloc(sizeof(char) * slen("Error"));
-			if (OS == NULL) {
-				free(OS);
-				break;
-			}
-			OS = "Error";
-			break;
+		if ((check_w > 0 && check_l > 0)) {
+			return NULL;
 		}
 
 		if (path[i + 1] == '\0' && check_w == 0) {
@@ -65,6 +60,8 @@ char *check_os(const char *path)
 			}
 			OS = "Linux";
 			break;
+		} else if (path[i + 1] == '\0' && check_w == 0 && check_l == 0) {
+			return NULL;
 		}
 	}
 
