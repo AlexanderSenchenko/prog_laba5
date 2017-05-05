@@ -2,7 +2,7 @@
 
 int main()
 {
-	char *path, *dir, *cpy;
+	char *path, *cpy;
 	Error arg;
 
 	path = input();
@@ -15,10 +15,10 @@ int main()
 	scpy(path, cpy);
 	printf("Cpy %s", cpy);
 
-	dir = stok(path);
-	//for (int i = 0; i < 2; i++) {
+	/*dir = stok(path);
+	for (int i = 0; i < 2; i++) {
 		printf("%s\n", dir);
-	//}
+	}*/
 
 	output(arg, path);
 
