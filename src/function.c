@@ -4,7 +4,7 @@ char *input()
 {
 	char *path = malloc(sizeof(char) * MAX_PATH);
 	if (path == NULL) {
-		free(path);
+		return NULL;
 	}
 
 	fgets(path, MAX_PATH, stdin);
@@ -47,16 +47,14 @@ char *check_os(const char *path)
 		if (path[i + 1] == '\0' && check_w == 0) {
 			OS = malloc(sizeof(char) * slen("Windows"));
 			if (OS == NULL) {
-				free(OS);
-				break;
+				return NULL;
 			}
 			OS = "Windows";
 			break;
 		} else if (path[i + 1] == '\0' && check_l == 0) {
 			OS = malloc(sizeof(char) * slen("Linux"));
 			if (OS == NULL) {
-				free(OS);
-				break;
+				return NULL;
 			}
 			OS = "Linux";
 			break;
