@@ -2,25 +2,23 @@
 
 int main()
 {
-	char *path, *dir, *cpy;
-	Error arg;
+	char *dir1, *dir2, *delim, *path, *new_path;
 
+	printf("Delim: ");
+	delim = input();
+	printf("Path: ");
 	path = input();
+	printf("Dir1: ");
+	dir1 = input();
+	printf("Dir2: ");
+	dir2 = input();
 
-	arg = check(path);
+	new_path = process(path, dir1, dir2, delim);
+	printf("new path: %s", new_path);
 
-	printf("Error: %d\n", sspn(path));
 
-	cpy = malloc(sizeof(char) * slen(path) + 1);
-	scpy(path, cpy);
-	printf("Cpy %s", cpy);
-
-	dir = stok(path);
-	//for (int i = 0; i < 2; i++) {
-		printf("%s\n", dir);
-	//}
-
-	output(arg, path);
+	printf("%d\n", scmp(path, dir1));
+	//output(arg, path);
 
 	return 0;
 }

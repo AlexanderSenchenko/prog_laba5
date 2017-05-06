@@ -13,64 +13,34 @@ char *input()
 	return path;
 }
 
-Error check(const char *path)
+int check(const char *path)
 {
-	Error arg;
-
 	if (slen(path) > MAX_PATH) {
-		arg.type_er = 1;
-		arg.index_er = slen(path);
+		return -1;
 	} else if (sspn(path) > 0) {
-		arg.type_er = 2;
-		arg.index_er = sspn(path);
+		return sspn(path);
 	}
 
-	return arg;
+	
+
+	return 0;
 }
 
-char *check_os(const char *path)
+char *process(const char *path, const char *dir1, const char *dir2, const char *delim)
 {
-	char *OS;
-	int check_w = 0, check_l = 0;
-
+	char *cpy = malloc(sizeof(char) * MAX_PATH);
+	scpy(path, cpy);
 	for (int i = 0; path[i] != '\0'; i++) {
-		if (check_w == 0 && path[i] == '/') {
-			check_w++;
-		} else if (check_l == 0 && path[i] == '\\') {
-			check_l++;
-		}
-
-		if ((check_w > 0 && check_l > 0)) {
-			return NULL;
-		}
-
-		if (path[i + 1] == '\0' && check_w == 0) {
-			OS = malloc(sizeof(char) * slen("Windows"));
-			if (OS == NULL) {
-				return NULL;
-			}
-			OS = "Windows";
-			break;
-		} else if (path[i + 1] == '\0' && check_l == 0) {
-			OS = malloc(sizeof(char) * slen("Linux"));
-			if (OS == NULL) {
-				return NULL;
-			}
-			OS = "Linux";
-			break;
-		} else if (path[i + 1] == '\0' && check_w == 0 && check_l == 0) {
-			return NULL;
+		if (scmp(&path[i], dir1) == 0) {
+			scpy(dir2, &cpy[i]);
 		}
 	}
 
-	return OS;
+	return cpy;
 }
 
-void output(Error arg, const char *path)
+void output(const char *path)
 {
-	//printf("%d\n", arg.type_er);
-	//printf("%d\n", arg.index_er);
-	printf("OS: %s\n", check_os(path));
-	//printf("Depth: %d\n", depth);
+	printf("%s\n", path);
 }
 

@@ -7,14 +7,14 @@
 #define MAX_PATH 260
 
 //А нужна ли мне структура??????
-typedef struct {
-	int type_er;
-	int index_er;
-} Error;
+//typedef struct {
+//	int type_er;
+//	int index_er;
+//} Error;
 
 char *input();
-Error check(const char *path);
-void output(Error arg, const char *path);
-char *check_os(const char *path);
+int check(const char *path);
+char *process(const char *path, const char *dir1, const char *dir2, const char *delim);
+void output(const char *path);
 
 #endif
