@@ -26,18 +26,18 @@ int check(const char *path)
 	return 0;
 }
 
-char *process(const char *path, const char *dir1, const char *dir2, const char *delim)
+/*
+char *process(const char *path, const char *dir1, const char *dir2, const char *del)
 {
 	char *cpy = malloc(sizeof(char) * MAX_PATH);
 	scpy(path, cpy);
 	for (int i = 0; path[i] != '\0'; i++) {
-		if (scmp(&path[i], dir1) == 0) {
-			scpy(dir2, &cpy[i]);
-		}
+		
 	}
 
 	return cpy;
 }
+*/
 
 void output(const char *path)
 {

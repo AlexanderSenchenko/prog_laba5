@@ -14,7 +14,7 @@
 
 char *input();
 int check(const char *path);
-char *process(const char *path, const char *dir1, const char *dir2, const char *delim);
+//char *process(const char *path, const char *dir1, const char *dir2, const char *del);
 void output(const char *path);
 
 #endif
