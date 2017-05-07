@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int dir_n = 1;
+
 int slen(const char* path)
 {
 	int len = 0;
@@ -13,14 +15,20 @@ int slen(const char* path)
 
 int sspn(const char* path)
 {
-	char arr[] = {':', '*', '?', '"', '<', '>', '|'};
+	char arr[] = {':', '\\', '?', '"', '<', '>', '|', '/', '*'};
+	int flg1 = 1, flg2 = 1;
 	for (int i = 0; path[i] != '\0'; i++) {
+		if (path[i] == '+') {
+			flg1 = 1;
+			flg2 = 1;
+		}
 		for (int j = 0; j < slen(arr); j++) {
-			if ((path[i] == arr[0]) && (path[i + 1] == '\\')) {
-				continue;//можно сломать
-			}
-			if (path[i] == arr[j]) {
-				return i;
+			if (flg1 && (path[i] == arr[j] && path[i + 1] == arr[1])) {
+				flg1 = 0;
+			} else if (flg2 && (path[i] == arr[j] && path[i - 1] == arr[0])) {
+				flg2 = 0;
+			} else if (path[i] == arr[j]) {
+				return i + 1;
 			}
 		}
 	}
@@ -30,7 +38,7 @@ int sspn(const char* path)
 char** stok(const char* path, const char* del)
 {
 	char **dir, *cpy, buf[1];
-	int dir_n = 2, step = 0, j = 0;
+	int step = 0, j = 0;
 	for (int i = 0; path[i] != '\0'; i++) {
 		if (path[i] == del[0]) {
 			dir_n++;
@@ -41,10 +49,10 @@ char** stok(const char* path, const char* del)
 	scpy(path, cpy);
 
 	for (int i = 0; path[i] != '\0'; i++) {
-		if (path[i] == del[0] || path[i + 1] == '\0') {
-			if (path[i + 1] == '\0') {//выглядит страшно
-				i++;
-			}
+		if (path[i] == del[0] || path[i] == '\n') {
+			//if (path[i + 1] == '\0') {//выглядит страшно
+			//	i++;
+			//}
 			buf[0] = cpy[i];
 			cpy[i] = '\0';
 			dir[j] = malloc(sizeof(char) * slen(&cpy[step]) + 1);
@@ -52,9 +60,9 @@ char** stok(const char* path, const char* del)
 			step = i + 1;
 			j++;
 			cpy[i] = buf[0];
-			if (path[i] == '\0') {//псмотреть, можно ли красивее сделать
-				i--;
-			}
+			//if (path[i] == '\0') {//псмотреть, можно ли красивее сделать
+			//	i--;
+			//}
 		}
 	}
 	return dir;
@@ -62,13 +70,13 @@ char** stok(const char* path, const char* del)
 
 int scmp(const char* path, const char* path_2)
 {
-	int flg = 1;
+	int flg = 1;//строки совпадают
 	for (int i = 0; flg && (path[i] != '\0' || path_2[i] != '\0'); i++) {
 		if (path[i] != path_2[i]) {
-			flg = 0;//чекнуть на правильность работы
+			return 1;//строки не совпадают
 		}
 	}
-	return flg;
+	return 0;
 }
 
 void scpy(const char* path, char* cpy)

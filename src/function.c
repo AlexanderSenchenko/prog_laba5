@@ -17,27 +17,31 @@ int check(const char *path)
 {
 	if (slen(path) > MAX_PATH) {
 		return -1;
-	} else if (sspn(path) > 0) {
-		return sspn(path);
+	} else if (sspn(path) != 0) {
+		return sspn(path) + 1;
 	}
-
-	
 
 	return 0;
 }
 
-/*
-char *process(const char *path, const char *dir1, const char *dir2, const char *del)
+char *process(const char **dir, const char *dir1, const char *dir2, const char *del)
 {
-	char *cpy = malloc(sizeof(char) * MAX_PATH);
-	scpy(path, cpy);
-	for (int i = 0; path[i] != '\0'; i++) {
-		
+	char *new_path = malloc(sizeof(char) * MAX_PATH);
+	int step = 0;
+	for (int i = 0; i < dir_n; i++) {
+		if (scmp(dir[i], dir1) == 0) {
+			scpy(dir2, &new_path[step]);
+			new_path[slen(dir2) - 1] = del[0];
+			step = slen(new_path) + 1;
+			continue;			
+		}
+		scpy(dir[i], &new_path[step]);
+		new_path[slen(dir[i])] = del[0];
+		step = slen(new_path) + 1;
 	}
 
-	return cpy;
+	return new_path;
 }
-*/
 
 void output(const char *path)
 {

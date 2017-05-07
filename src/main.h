@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #define MAX_PATH 260
+extern int dir_n;
 
 //А нужна ли мне структура??????
 //typedef struct {
@@ -14,7 +15,7 @@
 
 char *input();
 int check(const char *path);
-//char *process(const char *path, const char *dir1, const char *dir2, const char *del);
+char *process(const char **dir, const char *dir1, const char *dir2, const char *del);
 void output(const char *path);
 
 #endif
