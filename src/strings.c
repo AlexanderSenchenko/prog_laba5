@@ -47,10 +47,9 @@ char** stok(const char* path, const char* del)
 	dir = malloc(sizeof(char*) * dir_n);
 	cpy = malloc(sizeof(char) * slen(path));
 	scpy(path, cpy);
-
 	for (int i = 0; path[i] != '\0'; i++) {
 		if (path[i] == del[0] || path[i] == '\n') {
-			//if (path[i + 1] == '\0') {//выглядит страшно
+			//if (path[i + 1] == '\0') {
 			//	i++;
 			//}
 			buf[0] = cpy[i];
@@ -60,7 +59,7 @@ char** stok(const char* path, const char* del)
 			step = i + 1;
 			j++;
 			cpy[i] = buf[0];
-			//if (path[i] == '\0') {//псмотреть, можно ли красивее сделать
+			//if (path[i] == '\0') {
 			//	i--;
 			//}
 		}
@@ -70,13 +69,16 @@ char** stok(const char* path, const char* del)
 
 int scmp(const char* path, const char* path_2)
 {
-	int flg = 1;//строки совпадают
-	for (int i = 0; flg && (path[i] != '\0' || path_2[i] != '\0'); i++) {
-		if (path[i] != path_2[i]) {
-			return 1;//строки не совпадают
+	for (int i = 0; path[i] != '\0' || path_2[i] != '\0'; i++) {
+		if (path[i] == '\n' || path_2[i] == '\n') {
+			break;
+		} else if (path[i] == '\0' || path_2[i] == '\0') {
+			return 0;
+		} else if (path[i] != path_2[i]) {
+			return 1;	
 		}
 	}
-	return 0;
+	return	0;
 }
 
 void scpy(const char* path, char* cpy)

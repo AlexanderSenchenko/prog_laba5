@@ -15,7 +15,7 @@ extern int dir_n;
 
 char *input();
 int check(const char *path);
-char *process(const char **dir, const char *dir1, const char *dir2, const char *del);
+char *process(char **dir, char *dir1, char *dir2, char *del);
 void output(const char *path);
 
 #endif

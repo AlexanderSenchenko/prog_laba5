@@ -29,8 +29,6 @@ int main()
 		return 0;
 	}
 
-	//printf("%d\n", scmp(dir1, dir2));
-
 	//output(arg, path);
 
 	dirs = stok(path, delim);
@@ -40,6 +38,6 @@ int main()
 	printf("\n");
 
 	new_path = process(dirs, dir1, dir2, delim);
-	printf("new path: %s", new_path);
+	printf("new path: %s\n", new_path);
 	return 0;
 }
