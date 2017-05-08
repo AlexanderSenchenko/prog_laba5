@@ -23,12 +23,15 @@ int check(const char *path)
 
 char *process(char **dir, char *dir1, char *dir2, char *del)
 {
-	char *new_path = malloc(sizeof(char) * MAX_PATH);
-	int step = 0;
+	char *new_path = malloc(sizeof(char) * MAX_PATH);//, *cpy;
+	int step = 0, step_swap;
 	for (int i = 0; i < dir_n; i++) {
-		if (scmp(dir[i], dir1) == 0) {
+		if (scmp(dir[i], dir1) != -1) {	
+			//cpy = malloc(sizeof(char) * MAX_PATH);
+			step_swap = scmp(dir[i], dir1);
 			scpy(dir2, &new_path[step]);
-			new_path[slen(new_path) - 1] = del[0];
+			scpy(&dir[i][step_swap], &new_path[slen(new_path)]);
+			new_path[slen(new_path)] = del[0];
 			step = slen(new_path);
 			continue;			
 		}

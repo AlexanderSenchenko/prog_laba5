@@ -69,22 +69,26 @@ char** stok(const char* path, const char* del)
 
 int scmp(const char* path, const char* path_2)
 {
-	for (int i = 0; path[i] != '\0' || path_2[i] != '\0'; i++) {
+	int i;
+	for (i = 0; path[i] != '\0' || path_2[i] != '\0'; i++) {
 		if (path[i] == '\n' || path_2[i] == '\n') {
 			break;
 		} else if (path[i] == '\0' || path_2[i] == '\0') {
 			return 0;
 		} else if (path[i] != path_2[i]) {
-			return 1;	
+			return -1;	
 		}
 	}
-	return	0;
+	return	i;
 }
 
 void scpy(const char* path, char* cpy)
 {
 	int i;
 	for (i = 0; path[i] != '\0'; i++) {
+		if (path[i] == '\n') {
+			continue;
+		}
 		cpy[i] = path[i];
 	}
 	cpy[i] = '\0';
