@@ -7,15 +7,10 @@
 #define MAX_PATH 260
 extern int dir_n;
 
-//А нужна ли мне структура??????
-//typedef struct {
-//	int type_er;
-//	int index_er;
-//} Error;
-
 char *input();
-int check(const char *path);
-char *process(char **dir, char *dir1, char *dir2, char *del);
-void output(const char *path);
+int check(const char *path, char *del);
+int check_delim(char *del);
+char *process(char *path, char *dir1, char *dir2, char *del);
+int output(char *path, int index);
 
 #endif
