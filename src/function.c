@@ -14,12 +14,46 @@ char *input()
 int check(const char *path, char* del)
 {
 	int index;
+	int flg = 1, flg2 = 1;
+	char arr[] = {'\\', ':', '\n', '\0', del[0]};
 	if (slen(path) > MAX_PATH) {
 		return -1;
 	}
 	index = sspn(path, del);
 	if (index != 0) {
 		return index;
+	}
+	for (int i = 0; path[i] != '\0'; i++) {
+		if (path[i] == del[0]) {
+			flg2 = 1;
+		}
+		if (path[i] == arr[1] && flg2 == 1) {
+			if (path[i - 1] >= 'a' && path[i - 1] <= 'z') {
+				flg = 0;
+			} else if (path[i - 1] >= 'A' && path[i - 1] <= 'Z') {
+				flg = 0;
+			}
+			if (flg == 0 && path[i + 1] == arr[0]) {
+				flg2 = 0;
+			} else {
+				return i + 1;
+			}
+		} else if (path[i] == arr[0]) {
+			if (path[i - 1] >= 'a' && path[i - 1] <= 'z') {
+				flg = 0;
+			} else if (path[i - 1] >= 'A' && path[i - 1] <= 'Z') {
+				flg = 0;
+			} else if (path[i - 1] == arr[1]) {
+				flg = 0;
+			} else {
+				return i + 1;
+			}
+			for (int j = 2; j < 5; j++) {
+				if (path[i + 1] == arr[j]) {
+					return i + 1;
+				}
+			}
+		}
 	}
 	return 0;
 }
@@ -31,6 +65,7 @@ int check_delim(char *del)
 	for (int i = 0; i < slen(arr); i++) {
 		if (del[0] == arr[i]) {
 			index = 0;
+			return index;
 		}
 	}
 	return index;

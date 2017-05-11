@@ -11,7 +11,7 @@ int slen(const char* path)
 	return len;
 }
 
-int sspn(const char* path, char *del)
+/*int sspn(const char* path, char *del)
 {
 	char arr[] = {'\\', ':', '?', '"', '<', '>', '|', '/', '*'};
 	char arr2[] = {'\n', '\0', del[0]};
@@ -21,6 +21,9 @@ int sspn(const char* path, char *del)
 			flg1 = 1;
 		}
 		if (path[i] == arr[0]) {
+			if (path[i - 1] == del[0]) {
+				return i + 1;
+			}
 			for (int z = 0; z < slen(arr2); z++) {
 				if (path[i + 1] == arr2[z]) {
 					return i + 1;
@@ -31,6 +34,19 @@ int sspn(const char* path, char *del)
 			if (flg1 && (path[i] == arr[j] && path[i + 1] == arr[0])) {
 				flg1 = 0;
 			} else if (path[i] == arr[j]) {
+				return i + 1;
+			}
+		}
+	}
+	return 0;
+}*/
+
+int sspn(const char* path, char *del)
+{
+	char arr[] = {'?', '"', '<', '>', '|', '/', '*'};
+	for (int i = 0; path[i] != '\0'; i++) {
+		for (int j = 1; j < slen(arr); j++) {
+			if (path[i] == arr[j]) {
 				return i + 1;
 			}
 		}
