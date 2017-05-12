@@ -24,8 +24,11 @@ int check(const char *path, char* del)
 		return index;
 	}
 	for (int i = 0; path[i] != '\0'; i++) {
-		if (path[i] == del[0]) {
+		if (path[i] == del[0] && flg2 == 0) {
+			flg = 1;
 			flg2 = 1;
+		} else if (path[i] == del[0] && flg2 == 1) {
+			return i + 1;
 		}
 		if (path[i] == arr[1] && flg2 == 1) {
 			if (path[i - 1] >= 'a' && path[i - 1] <= 'z') {
@@ -39,12 +42,18 @@ int check(const char *path, char* del)
 				return i + 1;
 			}
 		} else if (path[i] == arr[0]) {
-			if (path[i - 1] >= 'a' && path[i - 1] <= 'z') {
-				flg = 0;
+			if (path[i - 1] == arr[1]) {
+				if (flg == 1) {
+					return i + 1;
+				}
+			} else if (path[i - 1] >= 'a' && path[i - 1] <= 'z') {
+				if (flg == 1) {
+					return i + 1;
+				}
 			} else if (path[i - 1] >= 'A' && path[i - 1] <= 'Z') {
-				flg = 0;
-			} else if (path[i - 1] == arr[1]) {
-				flg = 0;
+				if (flg == 1) {
+					return i + 1;
+				}
 			} else {
 				return i + 1;
 			}
